@@ -5,7 +5,7 @@
 #    pip-compile
 #
 cycler==0.10.0            # via matplotlib
-kiwisolver==1.2.0         # via matplotlib
+kiwisolver==1.1.0         # via matplotlib
 matplotlib==3.2.1         # via -r requirements.in
 numpy==1.18.2             # via -r requirements.in, matplotlib, opencv-python, scipy
 opencv-python==4.2.0.34   # via -r requirements.in
