@@ -6,10 +6,13 @@
 #
 cycler==0.10.0            # via matplotlib
 kiwisolver==1.1.0         # via matplotlib
-matplotlib==3.2.1         # via -r requirements.in
+matplotlib==3.0.3         # via -r requirements.in
 numpy==1.18.2             # via -r requirements.in, matplotlib, opencv-python, scipy
 opencv-python==4.2.0.34   # via -r requirements.in
 pyparsing==2.4.7          # via matplotlib
 python-dateutil==2.8.1    # via matplotlib
 scipy==1.4.1              # via -r requirements.in
 six==1.14.0               # via cycler, python-dateutil
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
