@@ -1,12 +1,22 @@
 import unittest
 
 import numpy as np
+import os
 
 from analog_noise_estimator.estimation import estimate_in_boxes, estimate_noise
 from analog_noise_estimator.laplacians import L3
 
 
 class EstimationTest(unittest.TestCase):
+    def get_data_dir(self):
+        """
+        Returns the directory where this py file is located. The assumption is
+        that the test npy files will be in the same location. This is
+        important, if the sources are included in other project (such as Svarog)
+        """
+        dir, _ = os.path.split(__file__)
+        return dir + os.path.sep
+
     def test_estiation_in_boxes_count(self):
         mask = L3
         I = [[0, 0, 0, 0, 0, 0],
@@ -15,7 +25,7 @@ class EstimationTest(unittest.TestCase):
              [0, 0, 0, 0, 0, 0],
              [0, 0, 0, 0, 0, 0],
              [0, 0, 0, 0, 0, 0]]
-        
+
         mask = np.array(mask)
         I = np.array(I)
 
@@ -33,7 +43,7 @@ class EstimationTest(unittest.TestCase):
              [0, 0, 0, 0, 0, 0],
              [0, 0, 0, 0, 0, 0],
              [0, 0, 0, 0, 0, 0]]
-        
+
         mask = np.array(mask)
         I = np.array(I)
 
@@ -44,7 +54,7 @@ class EstimationTest(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_noisy_square(self):
-        img = np.load("tests/noisy.npy")
+        img = np.load(self.get_data_dir() + "noisy.npy")
         global_estimation = estimate_noise(img, L3)
         self.assertGreater(global_estimation, 40)
 
@@ -54,7 +64,7 @@ class EstimationTest(unittest.TestCase):
             self.assertGreater(noise, 40)
 
     def test_good_square(self):
-        img = np.load("tests/good.npy")
+        img = np.load(self.get_data_dir() + "good.npy")
         global_estimation = estimate_noise(img, L3)
         self.assertLess(global_estimation, 10)
 

@@ -44,7 +44,12 @@ def estimate_noise(I, L, conv2d=np_fftconvolve):
         returns new 2D array.
     '''
     L = np.array(L)
-    H, W = I.shape
+
+    # This is a fix for handling images read by imread from matplotlib.pyplot. Its shape
+    # returns a tuple of 3 elements, instead of two as opencv's imread does. We don't care
+    # about the third parameter, but we don't want python to freak out that we unpack too few
+    # variables.
+    H, W, *_ = I.shape
     Lh, Lw = L.shape
     LhalfH = math.ceil(Lh / 2)
     LhalfW = math.ceil(Lw / 2)
@@ -63,7 +68,12 @@ def estimate_in_boxes(I, L, conv2d=np_fftconvolve, box=25):
     pixel of box and 'noise' with estimated noise sigma value (sigma from Gauss
     distribution of noise).
     '''
-    rows, cols = I.shape
+
+    # This is a fix for handling images read by imread from matplotlib.pyplot. Its shape
+    # returns a tuple of 3 elements, instead of two as opencv's imread does. We don't care
+    # about the third parameter, but we don't want python to freak out that we unpack too few
+    # variables.
+    rows, cols, *_ = I.shape
     results = []
     for rowIdx in range(0, rows, box):
         for colIdx in range(0, cols, box):
